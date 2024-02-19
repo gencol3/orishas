@@ -1,7 +1,7 @@
-export default function Dashboard() {
+export default function Create() {
     return (
       <main>
-        
+
       </main>
     );
 }
