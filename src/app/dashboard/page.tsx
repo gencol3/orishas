@@ -1,4 +1,4 @@
-export default function Create() {
+export default function Dashboard() {
     return (
       <main>
 
