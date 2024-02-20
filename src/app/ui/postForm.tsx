@@ -13,7 +13,7 @@ const CreatePostForm = () => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      await axios.post('../api/createPost', { title, content });
+      await axios.post('/api/createPost', { title, content });
       setTitle('');
       setContent('');
       setError('');
