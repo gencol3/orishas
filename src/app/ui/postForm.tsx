@@ -37,7 +37,7 @@ const CreatePostForm = () => {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           required
-          className='block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500'
+          className='block w-full color-black rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500'
           placeholder='Enter the title of your post...'
         />
       </div>
@@ -48,7 +48,7 @@ const CreatePostForm = () => {
           value={content}
           onChange={(e) => setContent(e.target.value)}
           required
-          className='block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500'
+          className='block w-full color-black rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500'
           placeholder='Write your post here...'
         />
       </div>
