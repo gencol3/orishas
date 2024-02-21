@@ -13,13 +13,12 @@ const CreatePostForm = () => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      await axios.post('/api/createPost', { title, content });
+      await axios.post('/api', { title, content });
       setTitle('');
       setContent('');
       setError('');
       setIsLoading(false);
-      // Optionally, you can redirect the user to the blog post list page after successful submission
-      window.location.href = '/Dashboard'; 
+      window.location.href = '/Dashboard'; // Redirect after successful submission
     } catch (error) {
       setError('An error occurred while creating the post. Please try again later.');
       setIsLoading(false);
