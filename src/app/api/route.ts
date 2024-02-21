@@ -3,7 +3,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { createClient } from '@vercel/postgres';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export async function post(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     const { title, content } = req.body;
 
