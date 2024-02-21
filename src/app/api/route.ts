@@ -1,10 +1,10 @@
-// src/app/api/route.ts
+// src/app/api/createPost.ts
 
 import { NextApiRequest, NextApiResponse } from 'next';
 import { createClient } from '@vercel/postgres';
 
-export default {
-  async post(req: NextApiRequest, res: NextApiResponse) {
+export async function POST(req: NextApiRequest, res: NextApiResponse) {
+  if (req.method === 'POST') {
     const { title, content } = req.body;
 
     // Create a new PostgreSQL client
@@ -32,5 +32,7 @@ export default {
       // Close the database client
       await client.end();
     }
+  } else {
+    res.status(405).json({ error: 'Method Not Allowed' });
   }
-};
+}
