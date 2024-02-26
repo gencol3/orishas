@@ -1,24 +1,33 @@
-import { useState, FormEvent, ChangeEvent } from 'react';
+import { useState, useEffect, FormEvent, ChangeEvent } from 'react';
 import axios from 'axios';
 
-const CreatePostForm = () => {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+interface EditPostFormProps {
+  postId: number; // Pass postId as a prop
+  initialTitle: string; // Pass initialTitle as a prop
+  initialContent: string; // Pass initialContent as a prop
+}
+
+const EditPostForm: React.FC<EditPostFormProps> = ({ postId, initialTitle, initialContent }) => {
+  const [title, setTitle] = useState(initialTitle);
+  const [content, setContent] = useState(initialContent);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    setTitle(initialTitle);
+    setContent(initialContent);
+  }, [initialTitle, initialContent]);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      await axios.post('/api/createPost', { title, content });
-      setTitle('');
-      setContent('');
+      await axios.put(`/api/editPost`, {postId, title, content });
       setError('');
       setIsLoading(false);
       window.location.href = '/dashboard'; // Redirect after successful submission
     } catch (error) {
-      setError('An error occurred while creating the post. Please try again later.');
+      setError('An error occurred while updating the post. Please try again later.');
       setIsLoading(false);
     }
   };
@@ -31,6 +40,11 @@ const CreatePostForm = () => {
     setContent(e.target.value);
   };
 
+  // Render form only when initial values are available
+  if (!initialTitle || !initialContent) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <form onSubmit={handleSubmit}>
       {error && <div className="error">{error}</div>}
@@ -40,10 +54,9 @@ const CreatePostForm = () => {
           type="text"
           id="title"
           value={title}
-          onChange={handleTitleChange} // Use handleTitleChange instead of anonymous function
+          onChange={handleTitleChange}
           required
           className='block w-full bg-gray-200 rounded-md border border-gray-200 py-[9px] pl-10 text-black outline-2 placeholder:text-gray-500'
-          placeholder='Enter the title of your post...'
         />
       </div>
       <div>
@@ -51,17 +64,16 @@ const CreatePostForm = () => {
         <textarea
           id="content"
           value={content}
-          onChange={handleContentChange} // Use handleContentChange instead of anonymous function
+          onChange={handleContentChange}
           required
           className='block w-full bg-gray-200 rounded-md border border-gray-200 py-[9px] pl-10 text-black outline-2 placeholder:text-gray-500'
-          placeholder='Write your post here...'
         />
       </div>
       <button type="submit" disabled={isLoading}>
-        {isLoading ? 'Creating...' : 'Create Post'}
+        {isLoading ? 'Updating...' : 'Update Post'}
       </button>
     </form>
   );
 };
 
-export default CreatePostForm;
+export default EditPostForm;

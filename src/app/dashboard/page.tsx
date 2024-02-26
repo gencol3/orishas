@@ -1,7 +1,16 @@
+'use client';
+import DisplayDashboardPost from "../ui/displayDashboardPost";
+import Header from "../ui/admin_dashboard";
+import ProtectedRoute from '../ProtectedRoute';
+
+
 export default function Dashboard() {
     return (
-      <main>
-        
-      </main>
+      <ProtectedRoute>
+        <main>
+          <Header/>
+          <DisplayDashboardPost />
+        </main>
+      </ProtectedRoute>
     );
 }
